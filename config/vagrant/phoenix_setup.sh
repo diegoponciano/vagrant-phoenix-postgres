@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
+echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/phoenix_setup.sh'"
 
-PHOENIX_VERSION=1.0.0
+PHOENIX_VERSION=1.1.4
 
-# Install Git if not available
-# if [ -z `which elixir` ]; then
+# Install the latest version of Phoenix
   echo "===== Installing Phoenix"
   yes Y | mix local.hex
-  yes Y | mix archive.install "https://github.com/phoenixframework/phoenix/releases/download/v$PHOENIX_VERSION/phoenix_new-$PHOENIX_VERSION.ez"
-# fi
+  yes Y | mix archive.install "https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"
 
 echo "=== End Vagrant Provisioning using 'config/vagrant/phoenix_setup.sh'"

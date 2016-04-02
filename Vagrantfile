@@ -17,19 +17,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', inline: $script
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'ubuntu/trusty64'
+  config.vm.box = 'ubuntu/wily64'
 
-  config.vm.synced_folder(
-    '.',
-    '/vagrant',
-    type: 'rsync',
-    rsync__exclude: [
-      '.git/',
-      '.vagrant/',
-      'log/*',
-      'tmp/'
-    ]
-  )
+  # On Windows there are problems using rsync, which is why I commented out this
+  # original code. Here the github references for Vagrant 1.8.1 .
+  # Perhaps a newer version of Vagrant might resolve this issue on Windows.
+  # https://github.com/mitchellh/vagrant/issues/6702
+  # https://github.com/mitchellh/vagrant/issues/3230
+  # config.vm.synced_folder(
+  #   '.',
+  #   '/vagrant',
+  #   type: 'rsync',
+  #   rsync__exclude: [
+  #     '.git/',
+  #     '.vagrant/',
+  #     'log/*',
+  #     'tmp/'
+  #   ]
+  # )
+
+  # Use the following on Windows to 'resolve' the rsync issue above.
+  config.vm.synced_folder "..", "/vagrant_data"
 
   config.vm.provision :shell, path: 'config/vagrant/build_dependency_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/git_setup.sh'
@@ -39,8 +47,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
 
   # PostgreSQL Server port forwarding
-  config.vm.network :forwarded_port, host: 4000, guest: 4000
-  config.vm.network :forwarded_port, host: 5432, guest: 5432
+  config.vm.network :forwarded_port, host: 4004, guest: 4000
+  config.vm.network :forwarded_port, host: 5434, guest: 5432
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

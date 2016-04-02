@@ -1,17 +1,27 @@
 #!/usr/bin/env bash
 
+echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/elixir_setup.sh'"
 
 PHOENIX_VERSION=0.17.0
 
-# Install Git if not available
+# Install elixir if not available
+# Note: the URL of erlang will
 if [ -z `which elixir` ]; then
   echo "===== Installing Elixir"
-  wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-  apt-get -y update
-  apt-get -y install elixir
+  # https://www.erlang-solutions.com/resources/download.html
+  # We have to use the more complex alternative erlang install as the
+  # standard install does not detect the Ubuntu codename correctly.
+  # Even if you have Ubuntu wily installed, the codename squeezy is
+  # prompted, and used for the insall, and the installation of erlang fails.
+  wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+  sudo apt-key add erlang_solutions.asc
+  sudo add-apt-repository "deb http://packages.erlang-solutions.com/ubuntu $(lsb_release -s -c) contrib"
+  sudo apt-get update
+  yes Y | sudo apt-get install esl-erlang
+  sudo apt-get install elixir
   yes Y | mix local.hex
-  yes Y | mix archive.install "https://github.com/phoenixframework/phoenix/releases/download/v0.17.0/phoenix_new-$PHOENIX_VERSION.ez"
+  yes Y | mix archive.install "https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"
 fi
 
 echo "=== End Vagrant Provisioning using 'config/vagrant/elixir_setup.sh'"

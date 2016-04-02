@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/postgresql_setup.sh'"
 
 # Edit the following to change the name of the database user that will be created:
@@ -10,7 +11,7 @@ APP_DB_PASS=$APP_DB_USER
 # APP_DB_NAME=${APP_DB_USER}_unused
 
 # Edit the following to change the version of PostgreSQL that is installed
-PG_VERSION=9.4
+PG_VERSION=9.5
 
 ###########################################################
 # Changes below this line are probably not necessary
@@ -55,18 +56,18 @@ PG_REPO_APT_SOURCE=/etc/apt/sources.list.d/pgdg.list
 if [ ! -f "$PG_REPO_APT_SOURCE" ]
 then
   # Add PG apt repo:
-  echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > "$PG_REPO_APT_SOURCE"
+  echo "deb http://apt.postgresql.org/pub/repos/apt/ wily-pgdg main" > "$PG_REPO_APT_SOURCE"
 
   # Add PGDG repo key:
   wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 fi
 
 # Update package list and upgrade all packages
-apt-get update
-apt-get -y upgrade
+sudo apt-get update
+sudo apt-get -y upgrade
 
-apt-get -y install "postgresql-$PG_VERSION" "postgresql-contrib-$PG_VERSION"
-apt-get -y install libpq-dev # For building ruby 'pg' gem
+sudo apt-get -y install "postgresql-$PG_VERSION" "postgresql-contrib-$PG_VERSION"
+sudo apt-get -y install libpq-dev # For building ruby 'pg' gem
 
 PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
 PG_HBA="/etc/postgresql/$PG_VERSION/main/pg_hba.conf"

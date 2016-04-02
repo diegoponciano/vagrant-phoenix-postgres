@@ -3,8 +3,6 @@
 echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/elixir_setup.sh'"
 
-PHOENIX_VERSION=0.17.0
-
 # Install elixir if not available
 # Note: the URL of erlang will
 if [ -z `which elixir` ]; then

@@ -48,8 +48,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: 'config/vagrant/check_versions.sh'
 
   # PostgreSQL Server port forwarding
-  config.vm.network :forwarded_port, host: 4004, guest: 4000
-  config.vm.network :forwarded_port, host: 5434, guest: 5432
+  config.vm.network :forwarded_port, host: 4000, guest: 4000
+  config.vm.network :forwarded_port, host: 5432, guest: 5432
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

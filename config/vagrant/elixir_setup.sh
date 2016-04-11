@@ -22,8 +22,6 @@ if [ -z `which elixir` ]; then
   sudo apt-get update
   yes Y | sudo apt-get install esl-erlang
   sudo apt-get install elixir
-  yes Y | mix local.hex
-  yes Y | mix archive.install "https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez"
 fi
 
 echo "=== End Vagrant Provisioning using 'config/vagrant/elixir_setup.sh'"

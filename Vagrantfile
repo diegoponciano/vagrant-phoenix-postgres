@@ -9,16 +9,32 @@ SCRIPT
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = '2'
 
+MEMORY_SIZE_MB = 1024
+NUMBER_OF_CPUS = 2
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = MEMORY_SIZE_MB
+    v.cpus = NUMBER_OF_CPUS
+  end
 
   config.vm.provision 'shell', inline: $script
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = 'ubuntu/xenial64'
 
+  config.vm.provision :shell, path: 'config/vagrant/build_dependency_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/git_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/nodejs_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/postgresql_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/elixir_setup.sh'
+  config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
+  config.vm.provision :shell, path: 'config/vagrant/check_versions.sh'
+  
   # On Windows there are problems using rsync, which is why I commented out this
   # original code. Here the github references for Vagrant 1.8.1 .
   # Perhaps a newer version of Vagrant might resolve this issue on Windows.
@@ -37,15 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # )
 
   # Use the following on Windows to 'resolve' the rsync issue above.
-  config.vm.synced_folder "..", "/vagrant_data"
-
-  config.vm.provision :shell, path: 'config/vagrant/build_dependency_setup.sh'
-  config.vm.provision :shell, path: 'config/vagrant/git_setup.sh'
-  config.vm.provision :shell, path: 'config/vagrant/nodejs_setup.sh'
-  config.vm.provision :shell, path: 'config/vagrant/postgresql_setup.sh'
-  config.vm.provision :shell, path: 'config/vagrant/elixir_setup.sh'
-  config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
-  config.vm.provision :shell, path: 'config/vagrant/check_versions.sh'
+  # config.vm.synced_folder ".", "/vagrant"
 
   # PostgreSQL Server port forwarding
   config.vm.network :forwarded_port, host: 4000, guest: 4000

@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+echo "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/postgresql_setup.sh'"
 

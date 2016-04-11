@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+echo "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 echo "======================================================================"
 echo "=== Begin Vagrant Provisioning using 'config/vagrant/phoenix_setup.sh'"
 

@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: 'config/vagrant/postgresql_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/elixir_setup.sh'
   config.vm.provision :shell, path: 'config/vagrant/phoenix_setup.sh', privileged: false
-  config.vm.provision :shell, path: 'config/vagrant/check_versions.sh'
+  config.vm.provision :shell, path: 'config/vagrant/check_versions.sh', privileged: false
   
   # On Windows there are problems using rsync, which is why I commented out this
   # original code. Here the github references for Vagrant 1.8.1 .

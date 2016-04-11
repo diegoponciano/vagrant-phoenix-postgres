@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', inline: $script
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'ubuntu/wily64'
+  config.vm.box = 'ubuntu/xenial64'
 
   # On Windows there are problems using rsync, which is why I commented out this
   # original code. Here the github references for Vagrant 1.8.1 .

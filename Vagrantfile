@@ -11,15 +11,19 @@ VAGRANTFILE_API_VERSION = '2'
 
 MEMORY_SIZE_MB = 1024
 NUMBER_OF_CPUS = 2
+VM_NAME = "vagrant-phoenix-postgres"
+VM_LINKED = true
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
-  
+
   config.vm.provider "virtualbox" do |v|
     v.memory = MEMORY_SIZE_MB
     v.cpus = NUMBER_OF_CPUS
+    v.name = VM_NAME
+    v.linked_clone = VM_LINKED
   end
 
   config.vm.provision 'shell', inline: $script
@@ -36,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: 'config/vagrant/post_install_priveleged.sh'
   config.vm.provision :shell, path: 'config/vagrant/post_install_user.sh', privileged: false
   config.vm.provision :shell, path: 'config/vagrant/check_versions.sh', privileged: false
-  
+
   # On Windows there are problems using rsync, which is why I commented out this
   # original code. Here the github references for Vagrant 1.8.1 .
   # Perhaps a newer version of Vagrant might resolve this issue on Windows.

@@ -7,7 +7,10 @@ echo "=== Begin Vagrant Provisioning using 'config/vagrant/build_dependency_setu
 
 # https://bugs.launchpad.net/ubuntu/+bug/1561250
 if [ $(cat /etc/hosts | grep -co 'ubuntu-xenial') = 0 ]; then
-  echo 127.0.1.1 ubuntu-xenial >> /etc/hosts
+  echo "sudo sh -c ""echo '127.0.1.1 ubuntu-xenial' >> /etc/hosts"""
+  sudo sh -c "echo '127.0.1.1 ubuntu-xenial' >> /etc/hosts"
+else
+  echo "Found entry 'ubuntu-xenial' in the /etc/hosts"
 fi
 
 # Install build dependencies for a sane build environment
